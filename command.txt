@@ -15,13 +15,22 @@
 13. git rm <file> //删除一个文件 同git add命令功能一样
 14. git remote add <remote-name> <url> //添加远程库
 15. git push <远程主机名> <本地分支名>:<远程分支名> //将本地仓库推送到github
+	git push <远程主机名> :<远程分支名> //如果省略本地分支名，则表示删除指定的远程分支，
+										  因为这等同于推送一个空的本地分支到远程分支，
+										  等同于 git push origin --delete master
+	git push origin --delete <远程分支名> //删除远程分支
+	git push --all origin //当遇到这种情况就是不管是否存在对应的远程分支，
+							将本地的所有分支都推送到远程主机，这时需要 -all 选项
 16. git clone <url> //克隆远程仓库
 17. git branch <branch-name> //创建分支
-18. git checkout -b <branch-name> //创建分支并切换
+18. git checkout -b <branch-name> //如果存在就切换此分支，不存在就创建分支并切换
 	git checkout -b <branch-name> <commit-id> //以<commit-id>当前内容创建分支 并切换到此分支
 19. git checkout <branch-name> //切换分支
 20. git merge <branch-name> //指定分支合并到当前分支
 21. git branch -d <branch-name> //删除指定分支
+	git branch -a //查看所有分支列表，包括本地和远程
+	git branch -vv //可以查看本地分支对应的远程分支
+	git branch -m oldName newName //给分支重命名
 22. git merge --no-ff -m "merge with no-ff" dev //表示合并时禁用Fast forward
 23. git stash //可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：
 24. git stash apply //恢复被‘储藏’的工作
@@ -40,3 +49,10 @@
 39. git push origin --tags //可以推送全部未推送过的本地标签；
 40. git tag -d <tagname> //可以删除一个本地标签；
 41. git push origin :refs/tags/<tagname> //可以删除一个远程标签。
+42. git push -u origin <remote_branch>或git push --set-upstream origin <remote_branch> //提交时配置关联关系
+	注：默认配置下，提交时本地分支需和远程分支同名；
+	git branch --set-upstream-to=<remote_branch> //更改git/config文件
+	无论使用上述那种方法，本地分支和远程分支的“关联”最终都会写到config文件；
+	关联分支：在git中表现为upstream,无论是使用push -u 或是 git branch --set-upstream-to方法，
+	均会将这种对应关系写入.git/config配置文件，如果一个本地分支没有关联分支，则无法执行 git push 或 git pull指令；
+43. git pull <远程主机名> <远程分支名>:<本地分支名>
