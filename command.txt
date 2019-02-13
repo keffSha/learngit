@@ -18,6 +18,7 @@
 16. git clone <url> //克隆远程仓库
 17. git branch <branch-name> //创建分支
 18. git checkout -b <branch-name> //创建分支并切换
+	git checkout -b <branch-name> <commit-id> //以<commit-id>当前内容创建分支 并切换到此分支
 19. git checkout <branch-name> //切换分支
 20. git merge <branch-name> //指定分支合并到当前分支
 21. git branch -d <branch-name> //删除指定分支
