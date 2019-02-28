@@ -37,7 +37,10 @@
 25. git stash drop //删除stash储藏的内容
 26. git stash pop //恢复的同时把stash内容也删了
 27. git checkout -b <branch-name> origin/<branch-name> //创建远程origin的<branch-name>分支到本地
-28. git pull //从远程抓取分支
+28. git pull <远程主机名> <远程分支名>:<本地分支名>//从远程抓取分支并与本地分支合并
+	git pull <远程主机名> <远程分支名> 	//远程分支是与当前分支合并，则冒号后面的部分可以省略。
+	git pull <远程主机名> //如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名。
+	git pull //如果当前分支只有一个追踪分支，连远程主机名都可以省略。
 29. git remote -v //查看远程库信息
 30. git branch --set-upstream <branch-name> origin/<branch-name> //建立本地分支和远程分支的关联
 33. git tag <tagname> //打标签
@@ -55,4 +58,11 @@
 	无论使用上述那种方法，本地分支和远程分支的“关联”最终都会写到config文件；
 	关联分支：在git中表现为upstream,无论是使用push -u 或是 git branch --set-upstream-to方法，
 	均会将这种对应关系写入.git/config配置文件，如果一个本地分支没有关联分支，则无法执行 git push 或 git pull指令；
-43. git pull <远程主机名> <远程分支名>:<本地分支名>
+43. git rebase --onto master server client //取出 client 分支，找出处于 client 分支和 server 分支的共同祖先之后的修改，
+											 然后把它们在 master 分支上重放一遍
+						  ↓master									   ↓master	   ↓client	
+		c1 —— c2 —— c5 —— c6						c1 —— c2 —— c5 —— c6 ——	c8` —— c9`					
+			   \ 			↓server						   \ 			↓server				
+				c3 —— c4 —— c10				→ 			    c3 —— c4 —— c10							
+				 \		↓client																
+				  c8 —— c9														
